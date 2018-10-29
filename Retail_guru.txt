@@ -1,0 +1,26 @@
+import pandas as pd 
+df1 = pd.read_csv("C:/Users/BHARATH/Desktop/bills.csv")
+df2 = pd.read_csv("C:/Users/BHARATH/Desktop/articles.csv")
+df3 = pd.read_csv("C:/Users/BHARATH/Desktop/customers.csv")
+df4=pd.concat([df3['customer_code'],df3['store_id']],axis=1)
+df4.set_index('customer_code',inplace=True)
+df4.to_csv('C:/Users/BHARATH/Desktop/cust_code.csv')
+df5=pd.concat([df1['customer_code'],df1['store_id']],axis=1)
+df5.set_index('customer_code',inplace=True)
+df5.to_csv('C:/Users/BHARATH/Desktop/bills_custcode.csv')
+dff=pd.merge(df1, df3, how='outer', on=['customer_code', 'store_id'])
+dff.to_csv('C:/Users/BHARATH/Desktop/test.csv')
+cff=pd.merge(dff, df2, how='inner', on=['article_id', 'store_id'])
+cff.to_csv('C:/Users/BHARATH/Desktop/test.csv')
+#group by Article_id
+ef2 = pd.read_csv("C:/Users/BHARATH/Desktop/all_sort.csv")
+eff=df1.groupby(['customer_code'], as_index=False)['name'].max()
+eff.to_csv("C:/Users/BHARATH/Desktop/max.csv")
+#cout_maximum_articles
+vf2 = pd.read_csv("C:/Users/BHARATH/Desktop/all_sort.csv")
+vff=df2.groupby('customer_code')['name'].apply(lambda x: x.value_counts()) 
+#large_baskets
+xf2 = pd.read_csv("C:/Users/BHARATH/Desktop/index_nam_count.csv")
+xf3= pd.read_csv("C:/Users/BHARATH/Desktop/index_cust_max.csv")
+xff=pd.merge(df2, df3, how='inner', on=['customer_code', 'count'])
+xff.to_csv("C:/Users/BHARATH/Desktop/max_art.csv")
